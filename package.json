@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "vite"
+    "dev": "vite --host"
   },
   "dependencies": {
     "p5": "^2.3.4",

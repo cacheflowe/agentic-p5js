@@ -7,7 +7,8 @@ const sketch = (s) => {
 
   s.draw = () => {
     s.background(220);
-    s.text("We're in instance mode!");
+    s.fill(0);
+    s.text("We're in instance mode!", 20, 30);
     s.fill(100, 150, 255);
     s.ellipse(s.mouseX, s.mouseY, 50, 50);
   };

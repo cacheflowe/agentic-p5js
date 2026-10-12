@@ -21,12 +21,11 @@ then explore the tools and workflows at your own pace.
     - [3. Set up highlighting and formatting](#3-set-up-highlighting-and-formatting)
     - [4. Install the dependencies](#4-install-the-dependencies)
     - [5. Start the development server](#5-start-the-development-server)
-  - [Understand your coding environment](#understand-your-coding-environment)
   - [Find your way around the project](#find-your-way-around-the-project)
   - [Make your first change](#make-your-first-change)
-    - [Canvas size](#canvas-size)
   - [Add AI coding help](#add-ai-coding-help)
     - [Set up GitHub Copilot in VS Code](#set-up-github-copilot-in-vs-code)
+    - [Choose your assistant](#choose-your-assistant)
     - [Choose the right amount of help](#choose-the-right-amount-of-help)
   - [Give your assistant useful context](#give-your-assistant-useful-context)
   - [Build professional habits](#build-professional-habits)
@@ -80,13 +79,13 @@ For automatic formatting, open VS Code's **Extensions** view and install
 (`esbenp.prettier-vscode`). It keeps indentation, spacing, and line wrapping
 consistent in JavaScript, HTML, CSS, and other files.
 
-Think of Prettier as the equivalent of **Tidy Code** in the p5.js Web Editor:
+Prettier is the equivalent of **Tidy Code** in the p5.js Web Editor:
 it tidies up the code's layout for you. Its exact formatting rules may differ,
 and in VS Code you can have it run automatically whenever you save.
 
 This project already provides p5.js and a Vite development server. You do not
 need a p5 project generator or a Live Server extension: install dependencies
-with npm and run the page with `npm run dev`.
+with npm and run the page with `npm run dev`. This is explained below.
 
 This repository includes [.vscode/settings.json](./.vscode/settings.json) to
 select Prettier and enable **format on save**, plus an
@@ -132,6 +131,10 @@ Open the **Local** URL printed in the terminal. It is usually
 `http://localhost:5173/`, but it might use another port, such as `5174`, if that
 port is already occupied.
 
+The terminal also prints a **Network** URL. Other devices on the same network,
+such as your phone, can open the sketch at that address. If they cannot connect,
+check that your computer's firewall allows Node.js on private networks.
+
 `localhost` means your own computer. This development server is not a published
 website. Leave the terminal running while you work; save a file to see the
 browser update. Press **Ctrl+C** in that terminal when you want to stop it.
@@ -140,47 +143,7 @@ browser update. Press **Ctrl+C** in that terminal when you want to stop it.
 to use that server, not start, stop, or restart one. The same rule is recorded
 in [AGENTS.md](./AGENTS.md).
 
-## Understand your coding environment
-
-If you have used the p5.js Web Editor, you have already used an editor, a preview,
-and a place to see errors. Here, those responsibilities are split across tools:
-
-| Tool                          | What it does                                                                |
-| ----------------------------- | --------------------------------------------------------------------------- |
-| VS Code                       | Edits files and provides navigation, error hints, terminals, and extensions |
-| Browser                       | Runs the HTML, CSS, JavaScript, and p5.js sketch                            |
-| Browser developer tools       | Show browser errors and let you inspect the running page                    |
-| Terminal                      | Runs commands and displays their output                                     |
-| Node.js and npm               | Support the local development tools and install dependencies                |
-| Vite                          | Serves the project locally and updates the page when you save               |
-| Git, when you add it          | Records checkpoints and shows what changed                                  |
-| AI assistant, when you add it | Helps explain, plan, edit, and check code                                   |
-
-**Your sketch runs in the browser, not inside VS Code or Node.js.** Node.js runs
-the development tooling; Vite prepares the project for the browser.
-
-An **IDE** is an integrated development environment: a workspace that brings
-editing and development tools together. You do not need to configure everything
-at once to start using one.
-
 ## Find your way around the project
-
-| File or folder                                           | Purpose                                                            |
-| -------------------------------------------------------- | ------------------------------------------------------------------ |
-| [index.html](./index.html)                               | The page's structure and the script that selects the active sketch |
-| [src/main.js](./src/main.js)                             | The default global-mode sketch, with `setup()` and `draw()`        |
-| [src/main-instance-mode.js](./src/main-instance-mode.js) | An alternative sketch using p5.js instance mode                    |
-| [src/style.css](./src/style.css)                         | Centers the canvas and follows your system's light/dark theme      |
-| [public/](./public/)                                     | Static files that Vite serves directly                             |
-| [package.json](./package.json)                           | Lists dependencies and available npm scripts                       |
-| [package-lock.json](./package-lock.json)                 | Records resolved dependency versions for repeatable installs       |
-| [.gitignore](./.gitignore)                               | Tells Git which generated and local files not to track             |
-| [AGENTS.md](./AGENTS.md)                                 | Project guidance for compatible AI agents                          |
-| [.agents/skills/](./.agents/skills/)                     | Local p5.js reference documents                                    |
-
-The three web building blocks are **HTML** for page structure, **CSS** for page
-appearance, and **JavaScript** for behavior. p5.js is a JavaScript library for
-creative coding.
 
 This project installs p5.js through npm and imports it with `import p5 from "p5"`.
 That is different from loading p5.js with a script link to a CDN, a service that
@@ -193,28 +156,14 @@ p5 instance: you write `s.createCanvas()` and `s.mouseX` rather than
 `createCanvas()` and `mouseX`.
 
 To try the instance-mode sketch, switch the commented script lines in
-[index.html](./index.html) so only `./src/main-instance-mode.js` is loaded.
+[index.html](./index.html) so only `./src/sketch-instance-mode.js` is loaded.
 Keep only one sketch entry script active at a time.
 
 ## Make your first change
 
-Open [src/main.js](./src/main.js). In `draw()`, change the `fill()` color or
+Open [src/sketch.js](./src/sketch.js). In `draw()`, change the `fill()` color or
 the `ellipse()` size, save the file, and look at the result in your browser.
 Try this without AI first: it confirms that your edit/save/preview loop works.
-
-### Canvas size
-
-Choose the canvas size in p5.js with `createCanvas()`. The CSS centers canvases
-that fit the browser window without stretching or shrinking them. Larger
-canvases stay full-size and the page scrolls.
-
-- `displayWidth` and `displayHeight` describe the screen.
-- `windowWidth` and `windowHeight` describe the browser viewport.
-
-For example, `createCanvas(windowWidth, windowHeight)` fits the viewport at
-creation time. Following later window resizing also requires a
-`windowResized()` handler and `resizeCanvas()`. In instance mode, use the
-corresponding `s.` functions and values.
 
 ## Add AI coding help
 
@@ -234,6 +183,50 @@ Start with an explanation-only request:
 
 > Read the active sketch and explain setup() and draw() to someone who has used
 > the p5.js Web Editor but is new to VS Code. Do not edit any files.
+
+### Choose your assistant
+
+Copilot is not the only option, and people use all of the tools below. Which one
+makes sense for you mostly depends on the subscriptions you already have, so pick
+whichever you like:
+
+- [Claude Code](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code):
+  a VS Code extension you sign in to with a **Claude** (Anthropic) account
+- [Codex](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt):
+  a VS Code extension you sign in to with a **ChatGPT** (OpenAI) account
+- [Google Antigravity](https://antigravity.google/): a separate editor built on
+  VS Code, which you sign in to with a Google account
+
+Each extension adds its own chat panel and features to VS Code. These tools
+overlap a lot: each can read your files, edit code, and run commands with your
+permission. But each one does things slightly differently, including
+**which project files it reads automatically**:
+
+| Tool                 | Project instructions it reads | Project skill folders it checks                         |
+| -------------------- | ----------------------------- | ------------------------------------------------------- |
+| GitHub Copilot       | `AGENTS.md`                   | `.github/skills/`, `.agents/skills/`, `.claude/skills/` |
+| Codex (OpenAI)       | `AGENTS.md`                   | `.agents/skills/`                                       |
+| Claude Code (Claude) | `CLAUDE.md`                   | `.claude/skills/`                                       |
+
+This project's guidance lives in [AGENTS.md](./AGENTS.md) and
+[.agents/skills/](./.agents/skills/), so Copilot and Codex find it on their own.
+Claude Code does not look in either place. With Claude Code, ask it directly to
+read `AGENTS.md` and the skill, or see
+[Project instructions and p5.js references](#project-instructions-and-p5js-references)
+for how a project can support several tools at once.
+
+These details change as the tools are updated. Check each tool's documentation,
+and ask the assistant which instruction files and skills it loaded when you are
+unsure.
+
+**Customize your workspace for your tools.** Expect to adjust a project like this
+one so it works well with the assistant you chose. Your assistant can help with
+that too: it can read the existing setup and propose the files your tool needs.
+For example:
+
+> I'm using Claude Code. Read AGENTS.md and .agents/skills/p5js/SKILL.md, then
+> suggest how to set up this workspace so you load the same instructions and
+> skill automatically. Explain each file before you create it.
 
 ### Choose the right amount of help
 
@@ -267,7 +260,7 @@ A useful request includes:
 For example:
 
 > Read the active sketch selected by index.html and the visual-effects reference
-> in .agents/skills/p5js-visual-effects.md. Make the circle drift smoothly with
+> in .agents/skills/p5js/references/visual-effects.md. Make the circle drift smoothly with
 > Perlin noise. Keep the canvas size and existing dependencies unchanged.
 > Explain your changes. Use my already-running server at [paste your Local URL];
 > do not start another server. Check that the circle stays inside the canvas.
@@ -351,46 +344,38 @@ become outdated: check them against the actual code and installed dependencies.
 
 ### Included references and skills
 
-We grabbed the guides in [.agents/skills/](./.agents/skills/) from
-[NousResearch's Hermes Agent p5.js references](https://github.com/NousResearch/hermes-agent/tree/main/skills/creative/p5js/references).
-Credit goes to the upstream project and its contributors.
+This project includes one **agent skill**, [p5js](./.agents/skills/p5js/SKILL.md).
+A skill is a folder with a `SKILL.md` entry file and, optionally, supporting
+files such as references and scripts:
 
-| Topic              | Reference                                                       |
-| ------------------ | --------------------------------------------------------------- |
-| Lifecycle and API  | [Core API](./.agents/skills/p5js-core-api.md)                   |
-| Drawing            | [Shapes and geometry](./.agents/skills/p5js-shapes-geometry.md) |
-| Motion             | [Animation](./.agents/skills/p5js-animation.md)                 |
-| Palettes and color | [Color systems](./.agents/skills/p5js-color-systems.md)         |
-| Input              | [Interaction](./.agents/skills/p5js-interaction.md)             |
-| Text               | [Typography](./.agents/skills/p5js-typography.md)               |
-| Noise and effects  | [Visual effects](./.agents/skills/p5js-visual-effects.md)       |
-| 3D and shaders     | [WebGL/3D](./.agents/skills/p5js-webgl-3d.md)                   |
-| Debugging          | [Troubleshooting](./.agents/skills/p5js-troubleshooting.md)     |
+```text
+.agents/skills/p5js/
+├── SKILL.md           ← name and description metadata, plus which reference to read when
+└── references/        ← nine detailed guides: core API, shapes, animation, color,
+                         interaction, typography, visual effects, WebGL/3D, troubleshooting
+```
 
-These are reference documents, not code that runs in the sketch. Mention or
-attach the relevant file when asking for help.
+The reference guides come from
+[NousResearch's Hermes Agent p5.js skill](https://github.com/NousResearch/hermes-agent/tree/main/skills/creative/p5js).
+Credit goes to the upstream project and its contributors. See the
+[Agent Skills standard](https://agentskills.io/) for the packaging format.
 
-A packaged **agent skill** has a discoverable entry file, usually
-`<skill-name>/SKILL.md` with name and description metadata, plus optional
-references and scripts. Our current standalone Markdown files are supporting
-references, **not automatically registered skills**, despite their folder name.
-See the [Agent Skills standard](https://agentskills.io/) for the packaging format.
+The skill loads in stages. At first the assistant sees only the skill's name and
+description. When a request matches, it reads `SKILL.md`, and from there only
+the reference files it needs. This keeps a large amount of guidance available
+without filling the assistant's context with all of it.
 
-Depending on your assistant's harness and configuration, registered skills can
-be **invoked automatically** when their description matches your request, or
-**invoked explicitly with a slash command**, such as `/skill-name`, when the
-tool supports it. Discovery, command syntax, and automatic invocation vary by
-tool; a relevant skill is not guaranteed to load for every request.
+Depending on your assistant's harness and configuration, skills can be
+**invoked automatically** when their description matches your request, or
+**invoked explicitly with a slash command**, such as `/p5js`, when the tool
+supports it. Tools also look for skills in different folders, so a skill is not
+guaranteed to load for every request or in every tool.
 
-You can also ask the agent to **read a specific skill or reference file directly**,
+You can always ask the agent to **read a skill or reference file directly**,
 provided it has access to that file. For example:
 
-> Read .agents/skills/p5js-webgl-3d.md and use its relevant guidance for this
-> sketch. Check the examples against our installed p5.js version.
-
-This direct-file approach works with our current references without registering
-them as skills. It loads reference material into the conversation rather than
-invoking a registered skill through the harness.
+> Read .agents/skills/p5js/references/webgl-3d.md and use its relevant guidance
+> for this sketch. Check the examples against our installed p5.js version.
 
 ### Try a guided-context experiment
 
