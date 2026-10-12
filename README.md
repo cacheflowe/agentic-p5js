@@ -27,6 +27,7 @@ then explore the tools and workflows at your own pace.
     - [Set up GitHub Copilot in VS Code](#set-up-github-copilot-in-vs-code)
     - [Choose your assistant](#choose-your-assistant)
     - [Choose the right amount of help](#choose-the-right-amount-of-help)
+    - [Pick a model for the task](#pick-a-model-for-the-task)
   - [Give your assistant useful context](#give-your-assistant-useful-context)
   - [Build professional habits](#build-professional-habits)
     - [Keep the feedback loop short](#keep-the-feedback-loop-short)
@@ -59,7 +60,9 @@ On this repository's GitHub page, choose **Code > Download ZIP**, extract the ZI
 and open the extracted folder with **File > Open Folder** in VS Code.
 
 If you already use Git, you can **clone** the repository instead: cloning
-downloads the files along with their version history.
+downloads the files along with their version history. In
+[GitHub Desktop](https://desktop.github.com/), choose **File > Clone Repository**
+and paste this repository's URL.
 
 Open the folder in VS Code. This gives both VS Code and your assistant access
 to the entire project's structure.
@@ -245,6 +248,25 @@ autonomy: either can host an agent.
 such as reading files, editing code, and running checks. It is not a guarantee
 that the result is correct. Start small and keep reviewing what it does.
 
+### Pick a model for the task
+
+Most chat panels have a **model picker** near the message box. Models from the
+same company usually trade capability against speed and cost. For example,
+Anthropic's **Claude Opus** is more capable than **Claude Sonnet**, but it is
+slower and uses more of your plan's limits or credits.
+
+Matching the model to the task is called **routing**:
+
+- **Faster, cheaper model:** explaining a line of code, renaming a variable,
+  tweaking colors, or small, well-defined edits.
+- **More capable model:** planning a bigger feature, debugging something
+  confusing, or a change that touches several files.
+
+Start with the faster model, and switch up when the answers stop being good
+enough. Some tools offer an **Auto** option that routes for you; how well that
+works, and what each model costs, depends on your tool and plan. Model names
+change often, so check what your picker offers rather than memorizing a list.
+
 ## Give your assistant useful context
 
 **Context** is the information available to the assistant for a particular
@@ -291,24 +313,33 @@ changes that you can understand, verify, and recover.
 4. Check the browser console and terminal for errors.
 5. Save a checkpoint before the next experiment.
 
-Open browser developer tools from your browser's menu and select **Console**.
-Browser JavaScript errors appear there; tooling errors may appear in the
-terminal or VS Code's Problems view.
-
-This repository currently defines only `npm run dev`, not test, lint, or build
-scripts. Do not assume commands such as `npm test` are configured. Browser checks
-are our starting point; automated checks can be added as the project grows.
-
 ### Use Git for checkpoints
 
-[Git](https://git-scm.com/) records local version history; GitHub hosts and shares
-repositories online. Saving a file is not the same as making a Git **commit**:
-a commit records a named checkpoint of selected changes.
+Git records local version history; GitHub hosts and shares repositories online.
+Saving a file is not the same as making a Git **commit**: a commit records a
+named checkpoint of selected changes.
 
-If you downloaded a ZIP, install Git and use VS Code's **Source Control >
-Initialize Repository** when you are ready to track your own changes. A cloned
-repository already has Git history. Review changes, stage the intended files,
-and commit with a descriptive message before a larger experiment.
+We recommend [GitHub Desktop](https://desktop.github.com/), a free app that
+gives you buttons and a visual diff instead of terminal commands. Many
+professionals use it every day. It includes Git, so you do not need to install
+Git separately to use it.
+
+- **Downloaded a ZIP?** Choose **File > Add Local Repository**, select the project
+  folder, and follow the prompt to create a repository when you are ready to
+  track your own changes.
+- **Cloned the repository?** It already has Git history. If you cloned it with
+  GitHub Desktop, it is already listed; otherwise add it with
+  **File > Add Local Repository**.
+
+Before a larger experiment, review the changed files and their diffs, select only
+the changes you intended, write a short descriptive summary, and **Commit**.
+**Repository > Open in Visual Studio Code** takes you back to your editor.
+
+VS Code's **Source Control** view and the
+[Git command line](https://git-scm.com/) do the same job, so use whichever you
+prefer. AI assistants usually run Git through the command line, which needs
+[Git](https://git-scm.com/) itself installed. Install it if you want your
+assistant to check what changed or make commits for you.
 
 Keep source files and the lockfile in version control. Generated dependencies
 and local files are excluded by [.gitignore](./.gitignore). Never commit passwords
@@ -411,10 +442,6 @@ You do not need these to complete the walkthrough.
   and data sources, such as a browser or issue tracker. An MCP connection does
   not automatically make access safe; review the server and its permissions.
   See [the MCP documentation](https://modelcontextprotocol.io/).
-- **Model selection and routing:** assistants may offer different models or
-  automatic selection. Faster models can suit small tasks; more capable models
-  may help with difficult reasoning. Check quality, usage limits, and cost.
-  Automatic routing is tool-dependent, not universal.
 
 ## Troubleshooting
 
