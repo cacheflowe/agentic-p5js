@@ -231,6 +231,13 @@ For example:
 > suggest how to set up this workspace so you load the same instructions and
 > skill automatically. Explain each file before you create it.
 
+If you use several assistants, keeping a copy of the same guidance for each one
+gets tedious and the copies drift apart. A **harness sync tool** keeps one
+**source of truth** instead: you edit your instructions and skills in one place,
+and the tool symlinks or reformats them into each harness's expected locations.
+[agents-config-sync](https://github.com/Hovercraft-Studio/agents-config-sync)
+is one example, covering several of the main harnesses.
+
 ### Choose the right amount of help
 
 | Capability         | Useful for                                             | First exercise                                                       |
