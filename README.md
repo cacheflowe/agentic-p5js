@@ -22,6 +22,7 @@ then explore the tools and workflows at your own pace.
     - [4. Install the dependencies](#4-install-the-dependencies)
     - [5. Start the development server](#5-start-the-development-server)
   - [Find your way around the project](#find-your-way-around-the-project)
+    - [Instance Mode vs Global Mode](#instance-mode-vs-global-mode)
   - [Make your first change](#make-your-first-change)
   - [Add AI coding help](#add-ai-coding-help)
     - [Set up GitHub Copilot in VS Code](#set-up-github-copilot-in-vs-code)
@@ -31,8 +32,8 @@ then explore the tools and workflows at your own pace.
   - [Give your assistant useful context](#give-your-assistant-useful-context)
   - [Build professional habits](#build-professional-habits)
     - [Keep the feedback loop short](#keep-the-feedback-loop-short)
-    - [Use Git for checkpoints](#use-git-for-checkpoints)
     - [Keep control of the assistant](#keep-control-of-the-assistant)
+    - [Use Git for checkpoints](#use-git-for-checkpoints)
   - [Project instructions and p5.js references](#project-instructions-and-p5js-references)
     - [Durable project guidance](#durable-project-guidance)
     - [Included references and skills](#included-references-and-skills)
@@ -50,7 +51,6 @@ then explore the tools and workflows at your own pace.
   (Long-Term Support) release. It includes **npm**, which installs project
   dependencies and runs project commands. This project's Vite version requires
   Node.js 20.19+ in the 20.x line, or 22.12+.
-- A modern web browser: this is where your p5.js sketch runs.
 
 Restart VS Code after installing Node.js so its terminal can find the new tools.
 
@@ -69,33 +69,18 @@ to the entire project's structure.
 
 ### 3. Set up highlighting and formatting
 
-VS Code includes syntax highlighting for JavaScript, HTML, and CSS. p5.js
-sketches are JavaScript, so **no p5-specific extension is needed for syntax
-highlighting**. If a sketch opens as plain text, use the language selector in
-the bottom-right status bar to select **JavaScript**.
-
-Highlighting colors the code to make it easier to read. p5-specific autocomplete
-and API documentation are separate features; we can explore those later.
-
-For automatic formatting, open VS Code's **Extensions** view and install
+VS Code includes syntax highlighting for JavaScript, HTML, and CSS. For automatic formatting, open VS Code's **Extensions** view and install
 [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 (`esbenp.prettier-vscode`). It keeps indentation, spacing, and line wrapping
-consistent in JavaScript, HTML, CSS, and other files.
-
-Prettier is the equivalent of **Tidy Code** in the p5.js Web Editor:
-it tidies up the code's layout for you. Its exact formatting rules may differ,
-and in VS Code you can have it run automatically whenever you save.
-
-This project already provides p5.js and a Vite development server. You do not
-need a p5 project generator or a Live Server extension: install dependencies
-with npm and run the page with `npm run dev`. This is explained below.
+consistent in JavaScript, HTML, CSS, and other files. Prettier is the equivalent of **Tidy Code** in the p5.js Web Editor:
+it automatically formats your code and makes it "pretty". In VS Code you can have it run automatically whenever you save.
 
 This repository includes [.vscode/settings.json](./.vscode/settings.json) to
 select Prettier and enable **format on save**, plus an
 [extension recommendation](./.vscode/extensions.json). Install the extension,
 open the project folder, and save a source file to try it.
 
-[.prettierrc.json](./.prettierrc.json) sets a generous **160-character target
+[.prettierrc.json](./.prettierrc.json) is a configuration file for Prettier. It sets a generous **160-character target
 width** and preserves existing Markdown prose wrapping. The width is a formatting
 hint, not a strict limit or an option to disable all wrapping.
 
@@ -103,11 +88,6 @@ If formatting does not run, open the **Command Palette** with **Cmd+Shift+P**
 on macOS or **Ctrl+Shift+P** on Windows/Linux, choose **Format Document With...**,
 and select Prettier. Check for language-specific settings overriding the project's
 formatter or format-on-save setting.
-
-Formatting changes how code is laid out, not what the sketch is intended to do.
-It is not a bug checker or a substitute for trying the sketch. The extension
-includes Prettier, so no extra npm package is needed for this initial setup.
-We can explore more editor tooling later.
 
 ### 4. Install the dependencies
 
@@ -142,25 +122,21 @@ check that your computer's firewall allows Node.js on private networks.
 website. Leave the terminal running while you work; save a file to see the
 browser update. Press **Ctrl+C** in that terminal when you want to stop it.
 
-**You manage the server.** Give your AI assistant its current URL and tell it
-to use that server, not start, stop, or restart one. The same rule is recorded
-in [AGENTS.md](./AGENTS.md).
-
 ## Find your way around the project
 
-This project installs p5.js through npm and imports it with `import p5 from "p5"`.
-That is different from loading p5.js with a script link to a CDN, a service that
-hosts library files online. Vite handles the imported library for the browser.
-Do not edit installed library files in `node_modules`.
+This project installs p5.js through npm and imports it with `import p5 from "p5"`, which is how modern JavaScript projects typically manage dependencies and import functionality from multiple JavaScript files, known as [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
+That is different from loading p5.js with a script link to a CDN, which is the default for the p5.js web editor.
+
+### Instance Mode vs Global Mode
 
 The default sketch assigns its lifecycle functions to `window`, the browser's
-global object. In instance mode, functions and values belong to a particular
-p5 instance: you write `s.createCanvas()` and `s.mouseX` rather than
-`createCanvas()` and `mouseX`.
+global object. This is called global mode, and is closest to how the p5.js web editor works.
 
-To try the instance-mode sketch, switch the commented script lines in
+In instance mode, functions and values belong to a particular
+p5 instance: you write `s.createCanvas()` and `s.mouseX` rather than
+`createCanvas()` and `mouseX`. To try the instance-mode sketch, switch the commented script lines in
 [index.html](./index.html) so only `./src/sketch-instance-mode.js` is loaded.
-Keep only one sketch entry script active at a time.
+Keep only one sketch entry script active at a time. Instance mode is particularly useful for running multiple sketches simultaneously, or running a p5.js sketch in a larger website.
 
 ## Make your first change
 
@@ -189,21 +165,16 @@ Start with an explanation-only request:
 
 ### Choose your assistant
 
-Copilot is not the only option, and people use all of the tools below. Which one
-makes sense for you mostly depends on the subscriptions you already have, so pick
-whichever you like:
+Copilot is a great option if you already have a GitHub account, but professionals use all of the tools below, largely depending on which subscription they already have:
 
-- [Claude Code](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code):
-  a VS Code extension you sign in to with a **Claude** (Anthropic) account
-- [Codex](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt):
-  a VS Code extension you sign in to with a **ChatGPT** (OpenAI) account
-- [Google Antigravity](https://antigravity.google/): a separate editor built on
-  VS Code, which you sign in to with a Google account
+- [Claude Code](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) from Anthropic
+- [Codex](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt) from OpenAI
+- [Google Antigravity](https://antigravity.google/product/antigravity-cli/) from Google
 
-Each extension adds its own chat panel and features to VS Code. These tools
-overlap a lot: each can read your files, edit code, and run commands with your
+Each extension adds its own chat panel (and optional CLI mode) to VS Code. These tools
+are all extremely similar: each can read your files, edit code, and run commands with your
 permission. But each one does things slightly differently, including
-**which project files it reads automatically**:
+**which context & configuration files it reads automatically**:
 
 | Tool                 | Project instructions it reads | Project skill folders it checks                         |
 | -------------------- | ----------------------------- | ------------------------------------------------------- |
@@ -286,16 +257,16 @@ A useful request includes:
 3. **Constraints:** what must stay unchanged.
 4. **Success check:** how you will know it worked.
 
-For example:
+An example prompt:
 
 > Read the active sketch selected by index.html and the visual-effects reference
 > in .agents/skills/p5js/references/visual-effects.md. Make the circle drift smoothly with
 > Perlin noise. Keep the canvas size and existing dependencies unchanged.
-> Explain your changes. Use my already-running server at [paste your Local URL];
+> Explain your changes. Use my already-running server at localhost:5173, so
 > do not start another server. Check that the circle stays inside the canvas.
 
 In Copilot, use the chat's context/attachment controls to add files or selected
-code. File mentions often use `#`; other tools may use `@`. Available shortcuts
+code. File mentions often use `#`; other tools may use `@` or `/` for auto-completion. Available shortcuts
 for terminals, errors, folders, and web content vary, so use your tool's context
 picker rather than assuming a tag works everywhere.
 
@@ -303,9 +274,6 @@ When debugging, include the **exact error text**, what you did before it appeare
 and what you expected. If an API is unfamiliar, ask the assistant to consult
 the [p5.js reference](https://p5js.org/reference/) and check compatibility with
 the installed version.
-
-Better context helps, but incorrect output is not always your fault: models
-can misunderstand requests, reason incorrectly, or suggest outdated APIs.
 
 ## Build professional habits
 
@@ -318,7 +286,17 @@ changes that you can understand, verify, and recover.
 2. Review the **diff**, a comparison showing added and removed lines.
 3. Save and try the result in the browser.
 4. Check the browser console and terminal for errors.
-5. Save a checkpoint before the next experiment.
+5. Save a checkpoint with Git before the next experiment.
+
+### Keep control of the assistant
+
+- Read edits before accepting them. Ask for explanations, smaller steps, or a
+  different approach when needed.
+- Review command permissions. An agent working locally is not necessarily
+  sandboxed; it may be able to change files or access services.
+- Keep secrets and private data out of prompts, attachments, and logs you share.
+- Let the assistant use your existing server, not manage it for you.
+- Ask what it actually checked. "It should work" is not evidence that it ran.
 
 ### Use Git for checkpoints
 
@@ -352,16 +330,6 @@ Keep source files and the lockfile in version control. Generated dependencies
 and local files are excluded by [.gitignore](./.gitignore). Never commit passwords
 or API keys; an ignore rule is not a substitute for checking what you stage.
 
-### Keep control of the assistant
-
-- Read edits before accepting them. Ask for explanations, smaller steps, or a
-  different approach when needed.
-- Review command permissions. An agent working locally is not necessarily
-  sandboxed; it may be able to change files or access services.
-- Keep secrets and private data out of prompts, attachments, and logs you share.
-- Let the assistant use your existing server, not manage it for you.
-- Ask what it actually checked. "It should work" is not evidence that it ran.
-
 ## Project instructions and p5.js references
 
 ### Durable project guidance
@@ -373,12 +341,11 @@ every preference in every conversation.
 Instruction discovery varies by tool. Codex and compatible agents use
 `AGENTS.md`; Copilot also has its own instruction mechanisms, and Claude Code
 uses `CLAUDE.md`. Do not assume one filename is automatically loaded everywhere.
-If unsure, attach our guidance explicitly and ask the assistant to summarize
+If unsure, attach our guidance explicitly to a chat and ask the assistant to summarize
 the rules before editing.
 
-These are project instructions, not enforcement mechanisms. They guide behavior
-but do not replace permissions, code review, or verification. They can also
-become outdated: check them against the actual code and installed dependencies.
+These are project instructions, not enforcement mechanisms. They guide agent behavior
+but aren't always followed exactly.
 
 ### Included references and skills
 
@@ -405,7 +372,7 @@ without filling the assistant's context with all of it.
 
 Depending on your assistant's harness and configuration, skills can be
 **invoked automatically** when their description matches your request, or
-**invoked explicitly with a slash command**, such as `/p5js`, when the tool
+**invoked explicitly with a slash command** in the chat window, such as `/p5js`, when the harness
 supports it. Tools also look for skills in different folders, so a skill is not
 guaranteed to load for every request or in every tool.
 
