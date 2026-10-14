@@ -373,8 +373,8 @@ without filling the assistant's context with all of it.
 Depending on your assistant's harness and configuration, skills can be
 **invoked automatically** when their description matches your request, or
 **invoked explicitly with a slash command** in the chat window, such as `/p5js`, when the harness
-supports it. Tools also look for skills in different folders, so a skill is not
-guaranteed to load for every request or in every tool.
+supports it. Different harnesses (like Copilot and Claude) also look for skills in different folders, so a skill is not
+guaranteed to load, and the behavior may vary depending on the assistant's environment and configuration.
 
 You can always ask the agent to **read a skill or reference file directly**,
 provided it has access to that file. For example:
@@ -393,22 +393,10 @@ Use separate chats and the same starting code for each run:
 3. Compare the results and diffs. Which choices improved? Which instructions
    were missed? What would you clarify next?
 
-Do not remove project files just to run this exercise. Existing instructions
-may already influence both chats, and model output varies, so this is an
-exploration of context, not a controlled benchmark or a promise of compliance.
-
 ## Optional tools and concepts
 
 You do not need these to complete the walkthrough.
 
-- **Other environments:** [Cursor](https://cursor.com/) and
-  [Windsurf](https://windsurf.com/) integrate AI assistance into their editors.
-  [Replit](https://replit.com/) offers a browser-based environment.
-- **Terminal assistants:** tools such as
-  [Claude Code](https://code.claude.com/docs/en/overview),
-  [Codex](https://developers.openai.com/codex/), and
-  [Gemini CLI](https://geminicli.com/) let you work with an assistant from a
-  terminal. Check each tool's setup, permissions, and billing.
 - **Agent harness:** the software around the model that manages tools, context,
   permissions, and execution. Reliable checks give that system feedback; a test
   suite is not the harness itself.
@@ -431,5 +419,5 @@ You do not need these to complete the walkthrough.
 | The page is blank or the sketch errors      | Check the browser console, terminal, and active script in [index.html](./index.html)     |
 | AI edits seem unrelated                     | Attach the correct files, state constraints, and request a smaller change                |
 
-When you get stuck, ask for help with the exact output and what you tried.
-Learning how to investigate is part of the workflow, not a prerequisite for it.
+When you get stuck, ask the chat for help with the exact output and what you tried.
+Learning how to investigate is part of the workflow, and this is something that AI-assisted development is really helpful for.

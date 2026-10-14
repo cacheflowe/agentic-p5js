@@ -414,7 +414,7 @@ function setup() { createCanvas(800, 800); }
 ## Browser Compatibility
 
 ### Safari Issues
-- WebGL shader precision: always declare `precision mediump float;`
+- WebGL shader precision: always declare a precision. `precision mediump float;` is fine for color-only shaders, but use `precision highp float;` for shaders that store or compute positions or other data (see [gpgpu-particles.md](gpgpu-particles.md)), because `mediump` can be 16-bit on some GPUs
 - `AudioContext` requires user gesture (`userStartAudio()`)
 - Some `blendMode()` options behave differently
 

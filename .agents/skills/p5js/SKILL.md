@@ -19,6 +19,7 @@ Use these guides when you write or debug p5.js code in this project. Read only t
 | Text and fonts                                       | [typography.md](references/typography.md)           |
 | Perlin noise, blur, glow, grain, and similar effects | [visual-effects.md](references/visual-effects.md)   |
 | 3D, cameras, and shaders                             | [webgl-3d.md](references/webgl-3d.md)               |
+| GPU particles, float framebuffers, GPGPU simulation  | [gpgpu-particles.md](references/gpgpu-particles.md) |
 | Errors, blank canvases, and performance problems     | [troubleshooting.md](references/troubleshooting.md) |
 
 ## Adapt the examples to this project
